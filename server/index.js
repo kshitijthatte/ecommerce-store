@@ -3,7 +3,13 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
+const authRoutes = require("./routes/auth");
+
+// DB Connection
 mongoose
   .connect(process.env.MONGODB_URL, {
     useNewUrlParser: true,
@@ -17,11 +23,18 @@ mongoose
     console.log("error connecting to MongoDB:", error.message);
   });
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
+// Middlewares
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(cors());
 
+// My Routes
+app.use("/api", authRoutes);
+
+// PORT
 const PORT = process.env.PORT;
+
+// Starting a server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
