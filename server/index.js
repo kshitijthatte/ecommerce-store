@@ -32,7 +32,12 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
 
-// My Routes
+// Root Route
+app.get("/", (req, res) => {
+  res.send("Hello World!, This is the backend for the T-Shirt Store");
+});
+
+// API Routes
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
