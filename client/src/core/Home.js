@@ -1,10 +1,19 @@
 import React from "react";
+import Nav from "./Nav";
+import Header from "./Header";
+import Products from "./Products";
+import Features from "./Features";
+import Footer from "./Footer";
 
 const Home = () => {
   return (
-    <div>
-      <h1>T-Shirt </h1>
-    </div>
+    <>
+      <Nav></Nav>
+      <Header></Header>
+      <Products></Products>
+      <Features></Features>
+      <Footer></Footer>
+    </>
   );
 };
 

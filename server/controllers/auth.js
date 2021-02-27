@@ -35,12 +35,11 @@ exports.signin = (req, res) => {
 
   User.findOne({ email }, (err, user) => {
     if (err || !user) {
-      res.status(400).json({
+      return res.status(400).json({
         error:
           "The email you entered doesn't belong to any account. Please check and try again.",
       });
     }
-
     if (!user.authenticate(password)) {
       return res.status(401).json({
         error:
