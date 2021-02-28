@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { isAuthenticated } from "../auth/helper";
-import { createCategory } from "../auth/helper/adminapicall";
-import AdminDashBoard from "./AdminDashBoard";
+import { isAuthenticated } from "./helper";
+import { createCategory } from "./helper/adminapicall";
+import AdminDashBoard from "../user/AdminDashBoard";
 
-const AddCategory = () => {
+const ManageCategories = () => {
   const [categoryName, setCategoryName] = useState("");
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -97,10 +97,10 @@ const AddCategory = () => {
       <>
         <div className="px-4 py-5 sm:px-6">
           <h3 className="text-lg leading-6 font-bold text-gray-900">
-            Create a New Category
+            Manage Categories
           </h3>
           <p className="mt-1 max-w-2xl text-sm text-gray-700">
-            Add a new category for the T-shirts here
+            Update or Delete the existing categories here
           </p>
         </div>
         {newCategoryForm()}
@@ -109,4 +109,4 @@ const AddCategory = () => {
   );
 };
 
-export default AddCategory;
+export default ManageCategories;

@@ -22,6 +22,12 @@ const AdminDashBoard = ({ children }) => {
         </Link>
         <Link
           className="block px-4 py-2 mt-2 font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+          to="/admin/categories"
+        >
+          Manage Categories
+        </Link>
+        <Link
+          className="block px-4 py-2 mt-2 font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
           to="/admin/create/product"
         >
           Create Products
@@ -46,7 +52,7 @@ const AdminDashBoard = ({ children }) => {
       <Nav />
       <div className="md:flex flex-col md:flex-row w-full">
         {adminNavigation()}
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg mr-8 mt-2 w-5/6">
+        <div className="bg-white shadow overflow-hidden sm:rounded-lg mr-8 mb-8 mt-2 w-5/6">
           {children}
         </div>
       </div>
