@@ -19,6 +19,34 @@ export const getAllCategoies = () => {
     .catch((err) => err.response);
 };
 
+// get a category
+export const getCategory = (categoryId) => {
+  return axios
+    .get(`${API}/category/${categoryId}`)
+    .then((response) => response.data)
+    .catch((err) => err.response);
+};
+
+// update a category
+export const updateCategory = (categoryId, userId, token, category) => {
+  return axios
+    .put(`${API}/category/${categoryId}/${userId}`, category, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => response.data)
+    .catch((err) => err.response);
+};
+
+//delete a category
+export const deleteCategory = (categoryId, userId, token) => {
+  return axios
+    .delete(`${API}/category/${categoryId}/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => response.data)
+    .catch((err) => err.response);
+};
+
 // product calls
 export const createProduct = (userId, token, product) => {
   return axios
@@ -40,7 +68,7 @@ export const getAllProducts = () => {
 // get a product
 export const getProduct = (productId) => {
   return axios
-    .get(`${API}/product/photo/${productId}`)
+    .get(`${API}/product/${productId}`)
     .then((response) => response.data)
     .catch((err) => err.response);
 };

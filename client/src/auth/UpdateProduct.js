@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import AdminDashBoard from "../user/AdminDashBoard";
 import { isAuthenticated } from "./helper";
-import { createProduct, getAllCategoies } from "./helper/adminapicall";
+import {
+  getAllCategoies,
+  getProduct,
+  updateProduct,
+} from "./helper/adminapicall";
 
-const AddProduct = () => {
+const UpdateProduct = ({ match }) => {
   const { user, token } = isAuthenticated();
 
   const [values, setValues] = useState({
@@ -25,18 +30,38 @@ const AddProduct = () => {
     stock,
     categories,
     photo,
+    category,
     error,
     createdProduct,
     formData,
   } = values;
+  const [didRedirect, setdidRedirect] = useState(false);
 
-  const preload = () => {
+  const preload = (productId) => {
+    getProduct(productId).then((data) => {
+      if (data.data && data.data.error) {
+        setValues({ ...values, error: data.data.error });
+      } else {
+        preloadCategories();
+        setValues({
+          ...values,
+          name: data.name,
+          description: data.description,
+          price: data.price,
+          category: data.category._id,
+          stock: data.stock,
+          formData: new FormData(),
+        });
+      }
+    });
+  };
+
+  const preloadCategories = () => {
     getAllCategoies().then((data) => {
       if (data.data && data.data.error) {
         setValues({ ...values, error: data.data.error });
       } else {
         setValues({
-          ...values,
           categories: data,
           formData: new FormData(),
         });
@@ -45,28 +70,34 @@ const AddProduct = () => {
   };
 
   useEffect(() => {
-    preload();
+    preload(match.params.productId);
   }, []);
 
   const onSubmit = (event) => {
     event.preventDefault();
     setValues({ ...values, error: "", loading: true });
-    createProduct(user._id, token, formData).then((data) => {
-      if (data.data && data.data.error) {
-        setValues({ ...values, error: data.data.error });
-      } else {
-        setValues({
-          ...values,
-          name: "",
-          description: "",
-          price: "",
-          photo: "",
-          stock: "",
-          loading: false,
-          createdProduct: data.name,
-        });
+
+    updateProduct(match.params.productId, user._id, token, formData).then(
+      (data) => {
+        if (data.data && data.data.error) {
+          setValues({ ...values, error: data.data.error });
+        } else {
+          setValues({
+            ...values,
+            name: "",
+            description: "",
+            price: "",
+            photo: "",
+            stock: "",
+            loading: false,
+            createdProduct: data.name,
+          });
+          setTimeout(() => {
+            setdidRedirect(true);
+          }, 5000);
+        }
       }
-    });
+    );
   };
   const handleChange = (name) => (event) => {
     const value = name === "photo" ? event.target.files[0] : event.target.value;
@@ -80,7 +111,7 @@ const AddProduct = () => {
         className="mb-3 text-center font-medium text-lg text-green-600"
         style={{ display: createdProduct ? "" : "none" }}
       >
-        {createdProduct} was created sucessfully.
+        {createdProduct} was updated sucessfully.
       </p>
     );
   };
@@ -96,6 +127,12 @@ const AddProduct = () => {
     );
   };
 
+  const performRedirect = () => {
+    if (didRedirect) {
+      return <Redirect to="/admin/products" />;
+    }
+  };
+
   const newProductForm = () => {
     return (
       <div className="border-t border-gray-200">
@@ -103,6 +140,7 @@ const AddProduct = () => {
           <div className="px-4 py-5 bg-gray-50 sm:p-6">
             {successMessage()}
             {errorMessage()}
+            {performRedirect()}
             <div className="grid grid-cols-6 gap-6">
               <div className="col-span-6 sm:col-span-3">
                 <label className="block text-sm font-medium text-gray-700">
@@ -125,6 +163,7 @@ const AddProduct = () => {
                   name="category"
                   className="mt-1 w-full bg-white rounded border border-gray-300 focus:border-deep-purple-accent-400 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out"
                   onChange={handleChange("category")}
+                  value={category}
                 >
                   <option>Select Category</option>
                   {categories &&
@@ -196,7 +235,7 @@ const AddProduct = () => {
                     </svg>
                     <div className="flex text-sm text-gray-600">
                       <label className="relative cursor-pointer mx-auto rounded-md font-medium text-deep-purple-accent-400 hover:text-deep-purple-accent-700 focus-within:outline-none">
-                        {photo.name || "Upload a file "}
+                        {(photo && photo.name) || "Upload a file "}
                         <input
                           name="photo"
                           type="file"
@@ -219,7 +258,7 @@ const AddProduct = () => {
               onClick={onSubmit}
               className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
             >
-              Save
+              Update
             </button>
           </div>
         </form>
@@ -232,10 +271,10 @@ const AddProduct = () => {
       <>
         <div className="px-4 py-5 sm:px-6">
           <h3 className="text-lg leading-6 font-bold text-gray-900">
-            Create a New Product
+            Update A Product
           </h3>
           <p className="mt-1 max-w-2xl text-sm text-gray-700">
-            Add a new T-Shirt to the store
+            Update the details for the T-Shirt
           </p>
         </div>
         {newProductForm()}
@@ -244,4 +283,4 @@ const AddProduct = () => {
   );
 };
 
-export default AddProduct;
+export default UpdateProduct;

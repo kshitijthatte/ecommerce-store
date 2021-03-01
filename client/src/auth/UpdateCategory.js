@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import { isAuthenticated } from "./helper";
-import { createCategory } from "./helper/adminapicall";
+import { getCategory, updateCategory } from "./helper/adminapicall";
 import AdminDashBoard from "../user/AdminDashBoard";
 
-const AddCategory = () => {
+const UpdateCategory = ({ match }) => {
   const [categoryName, setCategoryName] = useState("");
   const [createdCategory, setCreatedCategory] = useState("");
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [didRedirect, setdidRedirect] = useState(false);
 
   const { user, token } = isAuthenticated();
 
@@ -16,12 +18,28 @@ const AddCategory = () => {
     setCategoryName(event.target.value);
   };
 
+  const preload = (categoryId) => {
+    getCategory(categoryId).then((data) => {
+      if (data.data && data.data.error) {
+        setError(data.data.error);
+      } else {
+        setCategoryName(data.name);
+      }
+    });
+  };
+
+  useEffect(() => {
+    preload(match.params.categoryId);
+  }, []);
+
   const onSubmit = (event) => {
     event.preventDefault();
     setError(false);
     setSuccess(false);
 
-    createCategory(user._id, token, { name: categoryName })
+    updateCategory(match.params.categoryId, user._id, token, {
+      name: categoryName,
+    })
       .then((data) => {
         if (data.data && data.data.error) {
           setError(data.data.error);
@@ -30,7 +48,10 @@ const AddCategory = () => {
           setSuccess(true);
           setCreatedCategory(categoryName);
           setCategoryName("");
-          setTimeout(() => setSuccess(false), 5000);
+          setTimeout(() => {
+            setSuccess(false);
+            setdidRedirect(true);
+          }, 5000);
         }
       })
       .catch((err) => {
@@ -43,7 +64,7 @@ const AddCategory = () => {
       return (
         <p className="mt-2 font-medium text-md text-green-600">
           <span className="text-deep-purple-accent-400">{createdCategory}</span>{" "}
-          Category created sucessfully
+          Category updated sucessfully
         </p>
       );
     }
@@ -53,9 +74,15 @@ const AddCategory = () => {
     if (error) {
       return (
         <p className="mt-2 font-medium text-md text-red-600">
-          Failed to create new category
+          Failed to update the category
         </p>
       );
+    }
+  };
+
+  const performRedirect = () => {
+    if (didRedirect) {
+      return <Redirect to="/admin/categories" />;
     }
   };
 
@@ -69,6 +96,7 @@ const AddCategory = () => {
             </label>
             {successMessage()}
             {errorMessage()}
+            {performRedirect()}
           </div>
           <div className="bg-gray-50 px-4 pb-5 sm:px-6">
             <input
@@ -86,7 +114,7 @@ const AddCategory = () => {
               onClick={onSubmit}
               className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
             >
-              Save
+              Update
             </button>
           </div>
         </form>
@@ -111,4 +139,4 @@ const AddCategory = () => {
   );
 };
 
-export default AddCategory;
+export default UpdateCategory;
