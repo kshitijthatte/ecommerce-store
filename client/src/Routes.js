@@ -14,6 +14,7 @@ import ManageProducts from "./auth/ManageProducts";
 import UpdateProduct from "./auth/UpdateProduct";
 import UpdateCategory from "./auth/UpdateCategory";
 import Cart from "./core/Cart";
+import NotFound from "./core/NotFound";
 
 const Routes = () => {
   return (
@@ -48,6 +49,7 @@ const Routes = () => {
           exact
           component={UpdateCategory}
         />
+        <Route path="/" component={NotFound} />
       </Switch>
     </BrowserRouter>
   );

@@ -37,14 +37,14 @@ const Cart = () => {
               return (
                 <div
                   key={index}
-                  className="flex justify-between items-center mb-6 pb-6"
+                  className="flex justify-between items-center mb-6 pb-6 flex-wrap"
                 >
-                  <div className="flex items-center">
+                  <div className="flex items-center ">
                     <ImageHelper
                       product={product}
                       className={"rounded-full w-16 h-16"}
                     />
-                    <div className="flex flex-col ml-3">
+                    <div className="flex flex-col ml-3 flex-auto">
                       <span className="md:text-md font-medium">
                         {product.name}
                       </span>
@@ -53,7 +53,7 @@ const Cart = () => {
                       </span>
                     </div>
                   </div>
-                  <div className="flex justify-center items-center">
+                  <div className="flex justify-end items-center mt-1 flex-auto">
                     <div className="pr-8 flex">
                       <button
                         onClick={() => {
@@ -111,7 +111,7 @@ const Cart = () => {
             <div className="flex justify-between items-center border-t pt-6">
               <div className="flex items-center">
                 <a
-                  href="\"
+                  href="/#products"
                   className="text-md font-medium text-deep-purple-accent-400 hover:text-deep-purple-accent-700"
                 >
                   Continue Shopping

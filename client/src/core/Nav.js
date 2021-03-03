@@ -1,9 +1,9 @@
-import React /* useState */ from "react";
+import React, { useState } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { isAuthenticated, signout } from "../auth/helper";
 
 const Nav = ({ history }) => {
-  // const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
       <div className="relative flex items-center justify-between">
@@ -37,7 +37,7 @@ const Nav = ({ history }) => {
             <ul className="flex items-center hidden space-x-8 lg:flex">
               <li>
                 <a
-                  href="/"
+                  href="#products"
                   aria-label="Our products"
                   title="Our products"
                   className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
@@ -47,9 +47,9 @@ const Nav = ({ history }) => {
               </li>
               <li>
                 <a
-                  href="/"
-                  aria-label="Our product"
-                  title="Our product"
+                  href="#features"
+                  aria-label="Our features"
+                  title="Our features"
                   className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                 >
                   Features
@@ -58,7 +58,7 @@ const Nav = ({ history }) => {
 
               <li>
                 <a
-                  href="/"
+                  href="#about-us"
                   aria-label="About us"
                   title="About us"
                   className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
@@ -189,7 +189,7 @@ const Nav = ({ history }) => {
             </li>
           )}
         </ul>
-        {/* <div className="lg:hidden">
+        <div className="lg:hidden">
           <button
             aria-label="Open Menu"
             title="Open Menu"
@@ -260,72 +260,164 @@ const Nav = ({ history }) => {
                 </div>
                 <nav>
                   <ul className="space-y-4">
+                    {history.location.pathname === "/" && (
+                      <>
+                        <li>
+                          <a
+                            href="#products"
+                            aria-label="Our product"
+                            title="Our product"
+                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          >
+                            Products
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#features"
+                            aria-label="Our features"
+                            title="Our features"
+                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          >
+                            Features
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#about-us"
+                            aria-label="About us"
+                            title="About us"
+                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          >
+                            About us
+                          </a>
+                        </li>
+                      </>
+                    )}
                     <li>
-                      <a
-                        href="/"
-                        aria-label="Our product"
-                        title="Our product"
+                      <Link
+                        to="/cart"
+                        aria-label="Cart"
+                        title="Cart"
                         className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                       >
-                        Product
-                      </a>
+                        Cart{"  "}
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          className="w-5 inline"
+                        >
+                          <polyline
+                            fill="none"
+                            stroke="currentColor"
+                            strokeMiterlimit="10"
+                            points="4,4 22,4 19,14 4,14 "
+                          />
+                          <circle
+                            cx="4"
+                            cy="22"
+                            r="2"
+                            strokeLinejoin="miter"
+                            strokeLinecap="square"
+                            stroke="none"
+                            fill="currentColor"
+                          />
+                          <circle
+                            cx="20"
+                            cy="22"
+                            r="2"
+                            strokeLinejoin="miter"
+                            strokeLinecap="square"
+                            stroke="none"
+                            fill="currentColor"
+                          />
+                          <polyline
+                            fill="none"
+                            stroke="currentColor"
+                            strokeMiterlimit="10"
+                            points="1,1 4,4 4,14 2,18 23,18 "
+                          />
+                        </svg>
+                      </Link>
                     </li>
-                    <li>
-                      <a
-                        href="/"
-                        aria-label="Our product"
-                        title="Our product"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                      >
-                        Features
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/"
-                        aria-label="Product pricing"
-                        title="Product pricing"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                      >
-                        Pricing
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/"
-                        aria-label="About us"
-                        title="About us"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                      >
-                        About us
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/"
-                        aria-label="Sign in"
-                        title="Sign in"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                      >
-                        Sign in
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/"
-                        className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                        aria-label="Sign up"
-                        title="Sign up"
-                      >
-                        Sign up
-                      </a>
-                    </li>
+                    {!isAuthenticated() && (
+                      <>
+                        <li>
+                          <Link
+                            href="/signin"
+                            aria-label="Sign in"
+                            title="Sign in"
+                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          >
+                            Sign in
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            href="/signup"
+                            className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                            aria-label="Sign up"
+                            title="Sign up"
+                          >
+                            Sign up
+                          </Link>
+                        </li>
+                      </>
+                    )}
+                    {(isAuthenticated() && isAuthenticated().user.role === 0) ||
+                      (history.location.pathname === "/admin/dashboard" && (
+                        <li>
+                          <Link
+                            to="/user/dashboard"
+                            aria-label="Dashboard"
+                            title="Dashboard"
+                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          >
+                            User Dashboard
+                          </Link>
+                        </li>
+                      ))}
+                    {isAuthenticated() &&
+                      isAuthenticated().user.role === 1 &&
+                      history.location.pathname !== "/admin/dashboard" && (
+                        <li>
+                          <Link
+                            to="/admin/dashboard"
+                            aria-label="Admin Dashboard"
+                            title="Admin Dashboard"
+                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          >
+                            Admin Dashboard
+                          </Link>
+                        </li>
+                      )}
+                    {isAuthenticated() && (
+                      <li>
+                        <Link
+                          to="/"
+                          className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                          aria-label="Sign out"
+                          title="Sign out"
+                          onClick={() => {
+                            signout(() => {
+                              history.push("/");
+                            });
+                          }}
+                        >
+                          Sign out
+                        </Link>
+                      </li>
+                    )}
                   </ul>
                 </nav>
               </div>
             </div>
           )}
-        </div> */}
+        </div>
       </div>
     </div>
   );

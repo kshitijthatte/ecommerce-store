@@ -52,7 +52,7 @@ const AdminDashBoard = ({ children }) => {
       <Nav />
       <div className="md:flex flex-col md:flex-row w-full">
         {adminNavigation()}
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg mr-8 mb-8 mt-2 w-5/6">
+        <div className="bg-white shadow overflow-hidden sm:rounded-lg mx-8 md:ml-0 mb-8 mt-2 w-5/6">
           {children}
         </div>
       </div>
