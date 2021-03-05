@@ -37,6 +37,7 @@ export const changeCountInCart = (productId, change = "+") => {
     if (localStorage.getItem("cart")) {
       cart = JSON.parse(localStorage.getItem("cart"));
     }
+    // eslint-disable-next-line
     cart.map((product, index) => {
       if (product._id === productId) {
         if (change === "-") {
@@ -60,6 +61,7 @@ export const removeItemFromCart = (productId) => {
     if (localStorage.getItem("cart")) {
       cart = JSON.parse(localStorage.getItem("cart"));
     }
+    // eslint-disable-next-line
     cart.map((product, index) => {
       if (product._id === productId) {
         cart.splice(index, 1);
@@ -86,6 +88,7 @@ export const getAmount = () => {
     if (localStorage.getItem("cart")) {
       cart = JSON.parse(localStorage.getItem("cart"));
     }
+    // eslint-disable-next-line
     cart.map((product) => {
       amount = amount + product.price * product.count;
     });

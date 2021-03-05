@@ -7,13 +7,30 @@ import {
   getAmount,
 } from "./helper/cartHelper";
 import ImageHelper from "./helper/ImageHelper";
+import { isAuthenticated } from "../auth/helper";
+import { displayRazorpay } from "./helper/paymentHelper";
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
   const [reload, setReload] = useState(false);
 
+  const loadScript = (src) => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+      document.body.appendChild(script);
+    });
+  };
+
   useEffect(() => {
     setProducts(loadCart());
+    loadScript("https://checkout.razorpay.com/v1/checkout.js");
   }, [reload]);
 
   return (
@@ -25,8 +42,8 @@ const Cart = () => {
             Shopping Cart
           </h3>
         </div>
-        <div className="md:grid md:grid-cols-3 gap-2 w-full bg-gray-50 rounded p-4 px-3 py-5">
-          <div className="col-span-2 p-5">
+        <div className="w-full bg-gray-50 rounded p-4 px-3 py-5">
+          <div className="p-5">
             {products.length === 0 && (
               <p className="font-medium text-md text-center text-gray-800 pb-8">
                 <span>Your cart is empty! </span>
@@ -37,7 +54,9 @@ const Cart = () => {
               return (
                 <div
                   key={index}
-                  className="flex justify-between items-center mb-6 pb-6 flex-wrap"
+                  className={`flex justify-between items-center ${
+                    index === products.length - 1 ? "" : "mb-6"
+                  } pb-6 flex-wrap`}
                 >
                   <div className="flex items-center ">
                     <ImageHelper
@@ -60,7 +79,9 @@ const Cart = () => {
                           changeCountInCart(product._id, "-");
                           setReload(!reload);
                         }}
-                        className="font-semibold focus:outline-none"
+                        className={`font-semibold focus:outline-none  ${
+                          product.count === 1 ? "text-gray-500" : ""
+                        }`}
                       >
                         -
                       </button>
@@ -127,6 +148,22 @@ const Cart = () => {
                 </span>
               </div>
             </div>
+            {products.length !== 0 &&
+              (isAuthenticated() ? (
+                <button
+                  onClick={() => displayRazorpay(products)}
+                  className="inline-flex items-center justify-center w-full h-12 px-6 mt-5 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                >
+                  Buy Now
+                </button>
+              ) : (
+                <a
+                  href="/signin"
+                  className="inline-flex items-center justify-center w-full h-12 px-6 mt-5 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
+                >
+                  Login to Buy Now
+                </a>
+              ))}
           </div>
         </div>
       </div>
