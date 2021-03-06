@@ -92,3 +92,13 @@ export const deleteProduct = (productId, userId, token) => {
     .then((response) => response.data)
     .catch((err) => err.response);
 };
+
+//get all orders
+export const getAllOrders = (userId, token) => {
+  return axios
+    .get(`${API}/order/all/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => response.data)
+    .catch((err) => err.response.data);
+};

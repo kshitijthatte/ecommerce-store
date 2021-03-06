@@ -2,7 +2,6 @@ import { API } from "../../backend";
 import axios from "axios";
 import { isAuthenticated } from "../../auth/helper";
 import { cartEmpty } from "./cartHelper";
-import { Redirect } from "react-router-dom";
 import { createOrder } from "./orderHelper";
 
 export const displayRazorpay = async (products) => {
@@ -38,7 +37,7 @@ export const displayRazorpay = async (products) => {
         user: user._id,
       };
       createOrder(user._id, token, orderData);
-      cartEmpty(() => <Redirect to="/user/dashboard" />);
+      cartEmpty(() => window.location.reload());
     },
     prefill: {
       name: user.name,

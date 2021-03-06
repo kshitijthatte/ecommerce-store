@@ -14,7 +14,7 @@ router.get("/user/:userId", isSignedIn, isAuthenticated, getUser);
 router.put("/user/:userId", isSignedIn, isAuthenticated, updateUser);
 
 router.get(
-  "/orders/user/:userId",
+  "/user/:userId/orders",
   isSignedIn,
   isAuthenticated,
   userPurchaseList

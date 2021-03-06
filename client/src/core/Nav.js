@@ -144,19 +144,19 @@ const Nav = ({ history }) => {
               </li>
             </>
           )}
-          {(isAuthenticated() && isAuthenticated().user.role === 0) ||
-            (history.location.pathname === "/admin/dashboard" && (
-              <li>
-                <Link
-                  to="/user/dashboard"
-                  aria-label="Dashboard"
-                  title="Dashboard"
-                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                >
-                  User Dashboard
-                </Link>
-              </li>
-            ))}
+          {((isAuthenticated() && isAuthenticated().user.role === 0) ||
+            history.location.pathname === "/admin/dashboard") && (
+            <li>
+              <Link
+                to="/user/dashboard"
+                aria-label="Dashboard"
+                title="Dashboard"
+                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+              >
+                User Dashboard
+              </Link>
+            </li>
+          )}
           {isAuthenticated() &&
             isAuthenticated().user.role === 1 &&
             history.location.pathname !== "/admin/dashboard" && (
@@ -368,19 +368,20 @@ const Nav = ({ history }) => {
                         </li>
                       </>
                     )}
-                    {(isAuthenticated() && isAuthenticated().user.role === 0) ||
-                      (history.location.pathname === "/admin/dashboard" && (
-                        <li>
-                          <Link
-                            to="/user/dashboard"
-                            aria-label="Dashboard"
-                            title="Dashboard"
-                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                          >
-                            User Dashboard
-                          </Link>
-                        </li>
-                      ))}
+                    {((isAuthenticated() &&
+                      isAuthenticated().user.role === 0) ||
+                      history.location.pathname === "/admin/dashboard") && (
+                      <li>
+                        <Link
+                          to="/user/dashboard"
+                          aria-label="Dashboard"
+                          title="Dashboard"
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                        >
+                          User Dashboard
+                        </Link>
+                      </li>
+                    )}
                     {isAuthenticated() &&
                       isAuthenticated().user.role === 1 &&
                       history.location.pathname !== "/admin/dashboard" && (

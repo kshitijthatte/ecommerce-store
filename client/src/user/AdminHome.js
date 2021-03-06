@@ -1,6 +1,5 @@
 import React from "react";
 import AdminDashBoard from "./AdminDashBoard";
-
 import { isAuthenticated } from "../auth/helper";
 
 const AdminHome = () => {
