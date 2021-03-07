@@ -62,6 +62,12 @@ const UserOrders = () => {
             </p>
           </div>
           <div className="border-t border-gray-200">
+            {orders.length === 0 && (
+              <p className="font-medium text-md text-center text-gray-800 py-8">
+                <span>Your don't have any orders! </span>
+                <span className="block">Start Shopping Now</span>
+              </p>
+            )}
             {orders.map((order, index) => {
               const date = new Date(order.createdAt);
               return (
@@ -71,12 +77,12 @@ const UserOrders = () => {
                     index % 2 === 0 ? "bg-gray-50" : "bg-white"
                   } sm:p-6 grid grid-cols-12 gap-2`}
                 >
-                  <div className="py-2 text-md font-medium text-gray-700 col-span-4 sm:col-span-4">
+                  <div className="py-2 text-md font-medium text-gray-700 col-span-12 sm:col-span-4">
                     Order ID : {order._id} {"\n"}
                     Transaction ID : {order.transaction_id}
                   </div>
 
-                  <div className="py-2 text-md font-medium text-gray-700 col-span-3 sm:col-span-3">
+                  <div className="py-2 text-md font-medium text-gray-700 col-span-8 sm:col-span-3">
                     {date.toLocaleDateString("en-IN", {
                       hour: "2-digit",
                       minute: "2-digit",
@@ -85,20 +91,20 @@ const UserOrders = () => {
                       day: "numeric",
                     })}
                   </div>
-                  <div className="py-2 text-md font-medium text-gray-700 col-span-3 sm:col-span-3">
+                  <div className="py-2 text-md font-medium text-gray-700 col-span-7 sm:col-span-3">
                     Status :{" "}
                     <span className=" text-deep-purple-accent-400 uppercase">
                       {order.status}
                     </span>
                   </div>
-                  <div className="py-2 text-md font-medium text-gray-700 col-span-2 sm:col-span-2">
+                  <div className="py-2 text-md font-medium text-gray-700 col-span-5 sm:col-span-2">
                     Total Order Ammont : ₹{order.amount}
                   </div>
 
                   {order.products.map((product, index) => (
                     <div
                       key={index}
-                      className="py-2 text-md font-medium text-gray-700 col-span-4 sm:col-span-4"
+                      className="py-2 text-md font-medium text-gray-700 col-span-12 sm:col-span-4"
                     >
                       • {product.name} X {product.count}
                     </div>

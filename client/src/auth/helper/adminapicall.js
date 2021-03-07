@@ -102,3 +102,25 @@ export const getAllOrders = (userId, token) => {
     .then((response) => response.data)
     .catch((err) => err.response.data);
 };
+
+export const getOrderStatusList = (userId, token) => {
+  return axios
+    .get(`${API}/order/status/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((response) => response.data)
+    .catch((err) => err.response.datas);
+};
+
+export const updateOrderStatus = (userId, token, orderId, status) => {
+  return axios
+    .put(
+      `${API}/order/${orderId}/status/${userId}`,
+      { orderId, status },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
+    .then((response) => response.data)
+    .catch((err) => err.response.data);
+};

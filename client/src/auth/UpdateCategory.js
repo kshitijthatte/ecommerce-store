@@ -55,7 +55,7 @@ const UpdateCategory = ({ match }) => {
         }
       })
       .catch((err) => {
-        console.log("Error while creating a category", err);
+        console.log("Error while updating the category", err);
       });
   };
 
@@ -127,10 +127,10 @@ const UpdateCategory = ({ match }) => {
       <>
         <div className="px-4 py-5 sm:px-6">
           <h3 className="text-lg leading-6 font-bold text-gray-900">
-            Create a New Category
+            Update Category
           </h3>
           <p className="mt-1 max-w-2xl text-sm text-gray-700">
-            Add a new category for the T-shirts
+            Update the category name
           </p>
         </div>
         {newCategoryForm()}
