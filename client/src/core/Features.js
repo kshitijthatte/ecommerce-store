@@ -26,7 +26,7 @@ const Features = () => {
           <h6 className="text-4xl font-bold text-deep-purple-accent-400">
             819
           </h6>
-          <p className="mb-2 font-bold text-md">Downloads</p>
+          <p className="mb-2 font-bold text-md">Customers</p>
           <p className="text-gray-700">
             It’s something that’s many of the wisest people in history have kept
             in mind.
@@ -51,7 +51,7 @@ const Features = () => {
           <h6 className="text-4xl font-bold text-deep-purple-accent-400">
             1.3K
           </h6>
-          <p className="mb-2 font-bold text-md">Users</p>
+          <p className="mb-2 font-bold text-md">Orders</p>
           <p className="text-gray-700">
             For many men, the acquisition of wealth does not end their troubles,
             it only changes them.
@@ -73,8 +73,8 @@ const Features = () => {
               />
             </svg>
           </div>
-          <h6 className="text-4xl font-bold text-deep-purple-accent-400">91</h6>
-          <p className="mb-2 font-bold text-md">Subscribers</p>
+          <h6 className="text-4xl font-bold text-deep-purple-accent-400">21</h6>
+          <p className="mb-2 font-bold text-md">Categories</p>
           <p className="text-gray-700">
             It's a helluva start, being able to recognize what makes you happy
             today, in this moment.

@@ -35,8 +35,11 @@ const Products = ({ product }) => {
   }, []);
 
   return (
-    <section id="products" className="text-gray-600 body-font">
-      <div className="container px-5 py-24 mx-auto">
+    <section
+      id="products"
+      className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20"
+    >
+      <div className="container text-gray-600 body-font">
         <div className="flex flex-wrap -m-4">
           {products.map((product, index) => {
             return (
